@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Veterinaria El Trébol</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --teal: #0f766e;
+  --teal-light: #14b8a6;
+  --teal-dark: #0d5f58;
+  --green: #22c55e;
+  --green-light: #4ade80;
+  --green-dark: #16a34a;
+  --bg-gradient: linear-gradient(135deg, #e6f7f5 0%, #f0fdf4 50%, #e0f2f1 100%);
+  --glass: rgba(255,255,255,0.18);
+  --glass-border: rgba(255,255,255,0.35);
+  --text-dark: #1a2e2d;
+  --text-mid: #374151;
+  --shadow-soft: 0 8px 32px rgba(15,118,110,0.12);
+  --shadow-card: 0 4px 24px rgba(15,118,110,0.10);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  opacity: 0;
+  animation: pageIn 0.7s ease forwards;
+}
+
+@keyframes pageIn { to { opacity: 1; } }
+
+/* ─── HEADER ─── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  height: 68px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(15,118,110,0.1);
+  box-shadow: 0 2px 20px rgba(15,118,110,0.08);
+  transition: background 0.3s;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--teal), var(--green));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 20px;
+  box-shadow: 0 4px 12px rgba(15,118,110,0.3);
+}
+
+.logo-text { line-height: 1.1; }
+.logo-text strong {
+  display: block;
+  font-size: 14px; font-weight: 800; color: var(--teal);
+  font-family: 'Fraunces', serif;
+}
+.logo-text span { font-size: 11px; color: #6b7280; font-weight: 500; }
+
+/* hamburger */
+.hamburger {
+  width: 44px; height: 44px;
+  background: none; border: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border-radius: 10px; transition: background 0.2s;
+}
+.hamburger:hover { background: rgba(15,118,110,0.08); }
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--teal); border-radius: 2px;
+  transition: all 0.35s cubic-bezier(.77,0,.18,1);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* side nav */
+.side-nav {
+  position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; z-index: 999;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid rgba(15,118,110,0.12);
+  box-shadow: -8px 0 40px rgba(15,118,110,0.12);
+  padding: 90px 32px 40px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: right 0.45s cubic-bezier(.77,0,.18,1);
+}
+.side-nav.open { right: 0; }
+.side-nav a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-radius: 14px;
+  text-decoration: none; color: var(--text-mid);
+  font-weight: 600; font-size: 15px;
+  transition: all 0.25s;
+}
+.side-nav a i { color: var(--teal); width: 20px; text-align: center; }
+.side-nav a:hover { background: rgba(15,118,110,0.08); color: var(--teal); transform: translateX(4px); }
+.side-nav .nav-cta {
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--teal), var(--green));
+  color: white; border-radius: 14px; padding: 16px;
+  text-align: center; font-weight: 700; font-size: 15px;
+}
+.side-nav .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,118,110,0.3); color: white; }
+
+.nav-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 998;
+  backdrop-filter: blur(2px);
+}
+.nav-overlay.open { display: block; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 80px 24px 0;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1600&auto=format&fit=crop') center/cover no-repeat;
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(165deg, rgba(15,118,110,0.78) 0%, rgba(10,40,38,0.85) 70%);
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #a7f3d0; padding: 6px 16px; border-radius: 100px;
+  font-size: 13px; font-weight: 600; margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+.hero-badge i { color: var(--green-light); }
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: white; line-height: 1.15;
+  font-weight: 700; margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+.hero h1 em { font-style: italic; color: #6ee7b7; }
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: rgba(255,255,255,0.82); margin-bottom: 36px; font-weight: 400;
+}
+
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: white; padding: 14px 28px; border-radius: 100px;
+  font-weight: 700; font-size: 15px; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(34,197,94,0.35);
+  transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 32px rgba(34,197,94,0.45); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.4);
+  color: white; padding: 14px 28px; border-radius: 100px;
+  font-weight: 700; font-size: 15px; text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.22); transform: translateY(-3px); }
+
+.hero-contact-bar {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+  margin-top: 48px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  padding: 14px 28px; border-radius: 100px;
+  backdrop-filter: blur(12px);
+}
+.hero-contact-bar a {
+  display: flex; align-items: center; gap: 8px;
+  color: white; text-decoration: none; font-size: 14px; font-weight: 600;
+  transition: color 0.2s;
+}
+.hero-contact-bar a:hover { color: #6ee7b7; }
+.hero-contact-bar .divider { width: 1px; height: 20px; background: rgba(255,255,255,0.3); }
+.whatsapp-pill {
+  background: #25d366; border-radius: 100px; padding: 6px 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* scroll indicator */
+.scroll-hint {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2;
+  color: rgba(255,255,255,0.6); font-size: 12px; text-align: center;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+.scroll-hint i { display: block; font-size: 18px; margin-bottom: 4px; }
+
+/* ─── SECTIONS COMMON ─── */
+section { padding: 90px 24px; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--teal); font-size: 12px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.section-label::before, .section-label::after {
+  content: ''; width: 24px; height: 2px;
+  background: linear-gradient(to right, var(--teal), var(--green));
+  border-radius: 2px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700; color: var(--text-dark); line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-desc { color: #6b7280; font-size: 16px; max-width: 560px; line-height: 1.7; }
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* ─── SERVICIOS ─── */
+#servicios { background: transparent; }
+.servicios-header { text-align: center; margin-bottom: 52px; }
+.servicios-header .section-label { justify-content: center; }
+.servicios-header .section-desc { margin: 0 auto; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+@media(min-width:768px) { .services-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.service-card {
+  position: relative; border-radius: 20px; overflow: hidden;
+  aspect-ratio: 3/4; cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+}
+.service-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 48px rgba(15,118,110,0.2); }
+.service-card:hover .service-img { transform: scale(1.08); }
+
+.service-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.service-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(10,40,38,0.88) 0%, rgba(15,118,110,0.3) 55%, transparent 100%);
+}
+.service-glass {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 20px 18px;
+}
+.service-icon-wrap {
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 18px; margin-bottom: 12px;
+}
+.service-glass h3 { color: white; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.service-glass p { color: rgba(255,255,255,0.7); font-size: 12px; line-height: 1.4; }
+
+/* ─── NOSOTROS ─── */
+#nosotros { background: transparent; }
+.nosotros-grid {
+  display: grid; gap: 40px; align-items: center;
+  grid-template-columns: 1fr;
+}
+@media(min-width:768px) { .nosotros-grid { grid-template-columns: 1fr 1fr; } }
+
+.nosotros-img-wrap {
+  position: relative; border-radius: 28px; overflow: hidden;
+  aspect-ratio: 4/5; box-shadow: 0 20px 60px rgba(15,118,110,0.2);
+}
+.nosotros-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.nosotros-badge {
+  position: absolute; bottom: 24px; left: 24px;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-radius: 16px; padding: 14px 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.nosotros-badge strong { display: block; font-size: 26px; color: var(--teal); font-family: 'Fraunces', serif; }
+.nosotros-badge span { font-size: 12px; color: #6b7280; font-weight: 500; }
+
+.nosotros-text {
+  background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 28px; padding: 40px;
+  backdrop-filter: blur(20px); box-shadow: var(--shadow-soft);
+}
+.nosotros-text p {
+  color: var(--text-mid); font-size: 16px; line-height: 1.85;
+  margin-top: 20px; margin-bottom: 28px;
+}
+
+.stats-row { display: flex; gap: 24px; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-item strong {
+  display: block; font-size: 28px; color: var(--teal);
+  font-family: 'Fraunces', serif; font-weight: 700;
+}
+.stat-item span { font-size: 12px; color: #6b7280; font-weight: 500; }
+
+/* ─── GALERÍA ─── */
+#galeria { background: transparent; }
+.galeria-header { text-align: center; margin-bottom: 40px; }
+.galeria-header .section-label { justify-content: center; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media(min-width:640px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(min-width:1024px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.gallery-item {
+  border-radius: 16px; overflow: hidden; aspect-ratio: 1;
+  cursor: pointer; position: relative;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+}
+.gallery-item:hover { transform: scale(1.03); box-shadow: 0 16px 40px rgba(15,118,110,0.2); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; display: block; }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item .gallery-overlay {
+  position: absolute; inset: 0;
+  background: rgba(15,118,110,0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 24px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* lightbox */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 20px; object-fit: contain; box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
+.lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  color: white; font-size: 32px; cursor: pointer; background: none; border: none;
+  transition: transform 0.2s;
+}
+.lightbox-close:hover { transform: scale(1.2); }
+
+/* ─── EDUCACIÓN ─── */
+#educacion { background: transparent; }
+.educacion-header { text-align: center; margin-bottom: 40px; }
+.educacion-header .section-label { justify-content: center; }
+
+.educacion-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(2,1fr);
+}
+@media(min-width:768px) { .educacion-grid { grid-template-columns: repeat(4,1fr); } }
+
+.edu-card {
+  border-radius: 20px; overflow: hidden; aspect-ratio: 3/4;
+  position: relative; cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+}
+.edu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(15,118,110,0.18); }
+.edu-card:hover img { transform: scale(1.06); }
+.edu-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+.edu-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(10,40,38,0.9) 0%, rgba(15,118,110,0.2) 55%, transparent 100%);
+}
+.edu-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 16px;
+}
+.edu-tag {
+  align-self: flex-start;
+  background: rgba(34,197,94,0.85); color: white;
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.edu-title {
+  color: white; font-weight: 700; font-size: 14px; line-height: 1.4;
+}
+.edu-read {
+  display: flex; align-items: center; gap: 6px;
+  color: #6ee7b7; font-size: 12px; font-weight: 600; margin-top: 8px;
+}
+
+/* ─── TESTIMONIOS ─── */
+#testimonios { background: transparent; }
+.testimonios-header { text-align: center; margin-bottom: 40px; }
+.testimonios-header .section-label { justify-content: center; }
+
+.testimonios-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:640px) { .testimonios-grid { grid-template-columns: repeat(3,1fr); } }
+
+.testi-card {
+  background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px); border-radius: 24px; padding: 28px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+}
+.testi-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(15,118,110,0.15); }
+
+.stars { color: #f59e0b; font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-text {
+  font-size: 15px; color: var(--text-mid); line-height: 1.7;
+  margin-bottom: 20px; font-style: italic;
+}
+.testi-text::before { content: '\201C'; font-size: 40px; color: var(--teal); opacity: 0.3; line-height: 0; vertical-align: -14px; margin-right: 2px; }
+
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--teal-light);
+}
+.testi-name { font-weight: 700; font-size: 14px; }
+.testi-pet { font-size: 12px; color: #6b7280; }
+
+/* ─── CONTACTO ─── */
+#contacto { background: transparent; }
+.contacto-grid {
+  display: grid; gap: 40px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:768px) { .contacto-grid { grid-template-columns: 1fr 1fr; } }
+
+.contacto-info {
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  border-radius: 28px; padding: 40px; color: white;
+  position: relative; overflow: hidden;
+}
+.contacto-info::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.06); border-radius: 50%;
+}
+.contacto-info::after {
+  content: '';
+  position: absolute; bottom: -40px; left: -40px;
+  width: 150px; height: 150px;
+  background: rgba(34,197,94,0.1); border-radius: 50%;
+}
+.contacto-info h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px; font-weight: 700; margin-bottom: 28px;
+  position: relative; z-index: 1;
+}
+.info-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 20px; position: relative; z-index: 1;
+}
+.info-item-icon {
+  width: 40px; height: 40px; min-width: 40px;
+  background: rgba(255,255,255,0.15); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.info-item p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+.info-item strong { font-size: 15px; display: block; margin-bottom: 2px; }
+
+.whatsapp-btn-big {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: #25d366; color: white;
+  padding: 14px 24px; border-radius: 14px;
+  font-weight: 700; font-size: 15px; text-decoration: none;
+  margin-top: 28px; position: relative; z-index: 1;
+  transition: all 0.3s; box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+}
+.whatsapp-btn-big:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(37,211,102,0.4); }
+
+/* contact form */
+.contacto-form {
+  background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px); border-radius: 28px; padding: 40px;
+  box-shadow: var(--shadow-soft);
+}
+.contacto-form h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px; font-weight: 700; margin-bottom: 28px; color: var(--text-dark);
+}
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--teal-dark); margin-bottom: 6px;
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 13px 16px;
+  background: rgba(255,255,255,0.8); border: 1.5px solid rgba(15,118,110,0.18);
+  border-radius: 12px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px; color: var(--text-dark);
+  transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--teal); box-shadow: 0 0 0 3px rgba(15,118,110,0.1);
+}
+.form-group textarea { height: 110px; resize: vertical; }
+
+.form-submit {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, var(--teal), var(--green));
+  color: white; border: none; border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 15px; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(15,118,110,0.25);
+  transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.form-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(15,118,110,0.35); }
+
+.success-msg {
+  display: none; padding: 14px 18px;
+  background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 12px; color: var(--green-dark);
+  font-weight: 600; font-size: 14px; text-align: center; margin-top: 14px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: linear-gradient(135deg, #0a2826, #0d5f58);
+  color: white; padding: 60px 24px 30px;
+}
+.footer-grid {
+  display: grid; gap: 40px; max-width: 1200px; margin: 0 auto;
+  grid-template-columns: 1fr;
+}
+@media(min-width:640px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+
+.footer-brand .logo-text strong { color: #6ee7b7; font-size: 16px; }
+.footer-brand .logo-text span { color: rgba(255,255,255,0.5); }
+.footer-brand p {
+  color: rgba(255,255,255,0.55); font-size: 13px; line-height: 1.7;
+  margin: 14px 0 20px;
+}
+.social-links { display: flex; gap: 10px; }
+.social-links a {
+  width: 38px; height: 38px;
+  background: rgba(255,255,255,0.1); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; text-decoration: none; font-size: 15px;
+  transition: all 0.2s;
+}
+.social-links a:hover { background: var(--green); transform: translateY(-3px); }
+
+.footer-col h4 {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: #6ee7b7; margin-bottom: 18px;
+}
+.footer-col a {
+  display: block; color: rgba(255,255,255,0.55); text-decoration: none;
+  font-size: 14px; margin-bottom: 10px; transition: color 0.2s;
+}
+.footer-col a:hover { color: white; }
+.footer-col p {
+  color: rgba(255,255,255,0.55); font-size: 13px; line-height: 1.7; margin-bottom: 8px;
+}
+
+.footer-bottom {
+  max-width: 1200px; margin: 40px auto 0;
+  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+}
+.footer-bottom p { color: rgba(255,255,255,0.35); font-size: 12px; }
+
+/* ─── FLOATING WHATSAPP ─── */
+.float-wa {
+  position: fixed; bottom: 28px; right: 24px; z-index: 999;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+  animation: pulseWa 3s infinite;
+}
+.float-wa:hover { transform: scale(1.15); box-shadow: 0 12px 36px rgba(37,211,102,0.55); animation: none; }
+@keyframes pulseWa {
+  0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+  50% { box-shadow: 0 6px 36px rgba(37,211,102,0.7), 0 0 0 8px rgba(37,211,102,0.1); }
+}
+
+/* ─── ANIMATIONS ─── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+@media(max-width:480px) {
+  section { padding: 60px 18px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .hero-contact-bar { flex-direction: column; gap: 12px; }
+  .hero-contact-bar .divider { width: 60px; height: 1px; }
+  .nosotros-text { padding: 24px; }
+  .contacto-info, .contacto-form { padding: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="main-header">
+  <a href="#inicio" class="logo">
+    <div class="logo-icon">🍀</div>
+    <div class="logo-text">
+      <strong>Clínica El Trébol</strong>
+      <span>Veterinaria Profesional</span>
+    </div>
+  </a>
+  <button class="hamburger" id="ham" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- SIDE NAV -->
+<div class="nav-overlay" id="nav-overlay"></div>
+<nav class="side-nav" id="side-nav">
+  <a href="#inicio" class="nav-link"><i class="fa-solid fa-house"></i> Inicio</a>
+  <a href="#servicios" class="nav-link"><i class="fa-solid fa-stethoscope"></i> Servicios</a>
+  <a href="#nosotros" class="nav-link"><i class="fa-solid fa-heart"></i> Nosotros</a>
+  <a href="#galeria" class="nav-link"><i class="fa-solid fa-images"></i> Galería</a>
+  <a href="#educacion" class="nav-link"><i class="fa-solid fa-book-open"></i> Educación</a>
+  <a href="#contacto" class="nav-link"><i class="fa-solid fa-envelope"></i> Contacto</a>
+  <a href="https://wa.me/1234567890" class="nav-link nav-cta" target="_blank"><i class="fa-brands fa-whatsapp"></i> Agendar por WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fa-solid fa-paw"></i> Clínica Veterinaria de confianza desde 1999</div>
+    <h1>Tu mascota en las <em>mejores manos</em></h1>
+    <p>Atención veterinaria profesional con amor y cuidado. Tu familia peluda merece lo mejor.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary"><i class="fa-regular fa-calendar"></i> Agendar Cita</a>
+      <a href="#contacto" class="btn-outline"><i class="fa-solid fa-phone"></i> Contáctanos</a>
+    </div>
+  </div>
+  <div class="hero-contact-bar">
+    <a href="tel:+525512345678"><i class="fa-solid fa-phone"></i> (55) 1234-5678</a>
+    <div class="divider"></div>
+    <a href="https://wa.me/525512345678" target="_blank" class="whatsapp-pill"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <div class="divider"></div>
+    <a href="#contacto"><i class="fa-regular fa-clock"></i> Lun–Sáb 8am–8pm</a>
+  </div>
+  <div class="scroll-hint">
+    <i class="fa-solid fa-chevron-down"></i>
+    Desplaza
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <div class="servicios-header reveal">
+      <div class="section-label">Nuestros Servicios</div>
+      <h2 class="section-title">Cuidado integral para tu mascota</h2>
+      <p class="section-desc">Contamos con los mejores especialistas y equipamiento de última generación.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&auto=format&fit=crop" alt="Consulta General" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-stethoscope"></i></div>
+          <h3>Consulta General</h3>
+          <p>Revisión completa y diagnóstico profesional</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&auto=format&fit=crop" alt="Vacunación" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-syringe"></i></div>
+          <h3>Vacunación</h3>
+          <p>Esquemas completos para perros y gatos</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop" alt="Cirugía" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-scissors"></i></div>
+          <h3>Cirugía</h3>
+          <p>Procedimientos con tecnología avanzada</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&auto=format&fit=crop" alt="Desparasitación" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-shield-heart"></i></div>
+          <h3>Desparasitación</h3>
+          <p>Protección interna y externa</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1615887122038-fd57e196ddc2?w=600&auto=format&fit=crop" alt="Emergencias" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-kit-medical"></i></div>
+          <h3>Emergencias</h3>
+          <p>Atención de urgencias con rapidez</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1631815586344-09e21e8fbe97?w=600&auto=format&fit=crop" alt="Laboratorio" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-flask"></i></div>
+          <h3>Laboratorio</h3>
+          <p>Análisis clínicos y diagnóstico rápido</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop" alt="Farmacia" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-pills"></i></div>
+          <h3>Farmacia</h3>
+          <p>Medicamentos y productos especializados</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&auto=format&fit=crop" alt="Grooming" class="service-img">
+        <div class="service-overlay"></div>
+        <div class="service-glass">
+          <div class="service-icon-wrap"><i class="fa-solid fa-star"></i></div>
+          <h3>Grooming</h3>
+          <p>Estética y cuidado premium</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div class="nosotros-img-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&auto=format&fit=crop" alt="Veterinaria con mascota">
+        <div class="nosotros-badge">
+          <strong>25+</strong>
+          <span>Años de experiencia</span>
+        </div>
+      </div>
+      <div class="nosotros-text reveal">
+        <div class="section-label">Sobre Nosotros</div>
+        <h2 class="section-title">Pasión por el bienestar animal</h2>
+        <p>En Clínica Veterinaria El Trébol cuidamos la salud de tu mascota con profesionalismo, experiencia y amor. Contamos con más de 25 años de experiencia atendiendo perros y gatos, brindando diagnósticos precisos y tratamientos eficaces.</p>
+        <p>Nuestro equipo de especialistas está comprometido con el bienestar animal y con darte la tranquilidad de que tu mejor amigo está en las mejores manos.</p>
+        <div class="stats-row">
+          <div class="stat-item"><strong>+8,000</strong><span>Mascotas atendidas</span></div>
+          <div class="stat-item"><strong>12</strong><span>Especialistas</span></div>
+          <div class="stat-item"><strong>25+</strong><span>Años</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="container">
+    <div class="galeria-header reveal">
+      <div class="section-label">Galería</div>
+      <h2 class="section-title">Momentos que nos llenan el corazón</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop" alt="Clínica">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&auto=format&fit=crop" alt="Perro feliz">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&auto=format&fit=crop" alt="Gato revisión">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&auto=format&fit=crop" alt="Mascota feliz">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?w=600&auto=format&fit=crop" alt="Grooming">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1615887122038-fd57e196ddc2?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1615887122038-fd57e196ddc2?w=600&auto=format&fit=crop" alt="Laboratorio">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop" alt="Perro sano">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1504826260979-242151ee45b7?w=1200&auto=format&fit=crop')">
+        <img src="https://images.unsplash.com/photo-1504826260979-242151ee45b7?w=600&auto=format&fit=crop" alt="Gato feliz">
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lightbox-img" src="" alt="Imagen ampliada">
+</div>
+
+<!-- EDUCACIÓN -->
+<section id="educacion">
+  <div class="container">
+    <div class="educacion-header reveal">
+      <div class="section-label">Educación</div>
+      <h2 class="section-title">Aprende a cuidar mejor a tu mascota</h2>
+    </div>
+    <div class="educacion-grid">
+
+      <div class="edu-card reveal">
+        <img src="https://images.unsplash.com/photo-1504826260979-242151ee45b7?w=600&auto=format&fit=crop" alt="Gato">
+        <div class="edu-overlay"></div>
+        <div class="edu-content">
+          <span class="edu-tag">Comportamiento</span>
+          <div>
+            <div class="edu-title">¿Es normal que mi gato no sea cariñoso?</div>
+            <div class="edu-read"><i class="fa-solid fa-arrow-right-long"></i> Leer más</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&auto=format&fit=crop" alt="Vacuna">
+        <div class="edu-overlay"></div>
+        <div class="edu-content">
+          <span class="edu-tag">Salud</span>
+          <div>
+            <div class="edu-title">Cuidados después de una vacuna</div>
+            <div class="edu-read"><i class="fa-solid fa-arrow-right-long"></i> Leer más</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&auto=format&fit=crop" alt="Viaje">
+        <div class="edu-overlay"></div>
+        <div class="edu-content">
+          <span class="edu-tag">Consejos</span>
+          <div>
+            <div class="edu-title">Cómo viajar con tu mascota sin estrés</div>
+            <div class="edu-read"><i class="fa-solid fa-arrow-right-long"></i> Leer más</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <img src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&auto=format&fit=crop" alt="Señales">
+        <div class="edu-overlay"></div>
+        <div class="edu-content">
+          <span class="edu-tag">Alerta</span>
+          <div>
+            <div class="edu-title">Señales de enfermedad en perros</div>
+            <div class="edu-read"><i class="fa-solid fa-arrow-right-long"></i> Leer más</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="container">
+    <div class="testimonios-header reveal">
+      <div class="section-label">Testimonios</div>
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+    </div>
+    <div class="testimonios-grid">
+
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">Excelente atención y muy amables con mi mascota. Se nota el amor y la dedicación que le ponen a cada consulta.</p>
+        <div class="testi-author">
+          <img src="https://i.pravatar.cc/100?img=47" alt="María G." class="testi-avatar">
+          <div>
+            <div class="testi-name">María González</div>
+            <div class="testi-pet"><i class="fa-solid fa-paw"></i> Mamá de Luna</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">Los mejores veterinarios de la zona. Me explicaron todo con detalle y el trato fue increíble. Muy recomendados.</p>
+        <div class="testi-author">
+          <img src="https://i.pravatar.cc/100?img=12" alt="Carlos R." class="testi-avatar">
+          <div>
+            <div class="testi-name">Carlos Ramírez</div>
+            <div class="testi-pet"><i class="fa-solid fa-paw"></i> Papá de Thor</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">Mi perro se recuperó muy rápido gracias a ellos. El equipo es muy profesional y el lugar está perfectamente limpio.</p>
+        <div class="testi-author">
+          <img src="https://i.pravatar.cc/100?img=32" alt="Ana P." class="testi-avatar">
+          <div>
+            <div class="testi-name">Ana Patricia López</div>
+            <div class="testi-pet"><i class="fa-solid fa-paw"></i> Mamá de Kiwi</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px" class="reveal">
+      <div class="section-label" style="justify-content:center">Contacto</div>
+      <h2 class="section-title">¿Necesitas atención para tu mascota?</h2>
+      <p class="section-desc" style="margin:0 auto">Estamos aquí para ayudarte. Escríbenos o llámanos cuando lo necesites.</p>
+    </div>
+    <div class="contacto-grid">
+      <div class="contacto-info reveal">
+        <h3><i class="fa-solid fa-location-dot"></i> Información de contacto</h3>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-solid fa-map-pin"></i></div>
+          <div><strong>Dirección</strong><p>Av. Veterinaria 123, Col. Las Mascotas<br>Ciudad de México, CDMX</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-solid fa-phone"></i></div>
+          <div><strong>Teléfonos</strong><p>(55) 1234-5678<br>(55) 9876-5432</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-regular fa-clock"></i></div>
+          <div><strong>Horario</strong><p>Lunes – Sábado: 8:00 am – 8:00 pm<br>Domingo: 9:00 am – 2:00 pm</p></div>
+        </div>
+        <a href="https://wa.me/525512345678" target="_blank" class="whatsapp-btn-big">
+          <i class="fa-brands fa-whatsapp fa-lg"></i> Escribir por WhatsApp
+        </a>
+      </div>
+
+      <div class="contacto-form reveal">
+        <h3>Envíanos un mensaje</h3>
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="tel">Teléfono / WhatsApp</label>
+          <input type="tel" id="tel" placeholder="(55) 0000-0000">
+        </div>
+        <div class="form-group">
+          <label for="servicio">Servicio de interés</label>
+          <select id="servicio">
+            <option value="">Selecciona un servicio</option>
+            <option>Consulta General</option>
+            <option>Vacunación</option>
+            <option>Cirugía</option>
+            <option>Desparasitación</option>
+            <option>Emergencias</option>
+            <option>Laboratorio</option>
+            <option>Farmacia</option>
+            <option>Grooming</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" placeholder="¿Cómo podemos ayudarte?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">
+          <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+        </button>
+        <div class="success-msg" id="success-msg">
+          <i class="fa-solid fa-circle-check"></i> ¡Mensaje enviado! Te contactaremos pronto.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#inicio" class="logo" style="margin-bottom:14px;display:inline-flex">
+        <div class="logo-icon">🍀</div>
+        <div class="logo-text">
+          <strong>Clínica El Trébol</strong>
+          <span>Veterinaria Profesional</span>
+        </div>
+      </a>
+      <p>Más de 25 años cuidando la salud de tu mascota con amor, experiencia y dedicación.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#galeria">Galería</a>
+      <a href="#educacion">Educación</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <p><i class="fa-solid fa-phone" style="color:#6ee7b7;margin-right:6px"></i> (55) 1234-5678</p>
+      <p><i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:6px"></i> (55) 9876-5432</p>
+      <p><i class="fa-solid fa-map-pin" style="color:#6ee7b7;margin-right:6px"></i> Av. Veterinaria 123, CDMX</p>
+      <p><i class="fa-regular fa-clock" style="color:#6ee7b7;margin-right:6px"></i> Lun–Sáb 8am–8pm</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Clínica Veterinaria El Trébol. Todos los derechos reservados.</p>
+    <p style="color:rgba(255,255,255,0.2)">Hecho con ❤️ para las mascotas</p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/525512345678" class="float-wa" target="_blank" aria-label="WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- CLICK SOUND -->
+<audio id="click-sound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav">
+</audio>
+
+<script>
+// ── Click sound (subtle)
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+function playClick() {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.04);
+  gain.gain.setValueAtTime(0.06, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+  osc.start(); osc.stop(ctx.currentTime + 0.06);
+}
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('click', () => { try { playClick(); } catch(e){} });
+});
+
+// ── Hamburger menu
+const ham = document.getElementById('ham');
+const sideNav = document.getElementById('side-nav');
+const overlay = document.getElementById('nav-overlay');
+function closeNav() {
+  ham.classList.remove('open');
+  sideNav.classList.remove('open');
+  overlay.classList.remove('open');
+}
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  sideNav.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+overlay.addEventListener('click', closeNav);
+document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', closeNav));
+
+// ── Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// ── Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => io.observe(el));
+
+// ── Lightbox
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+// ── Form submit
+function submitForm() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const tel = document.getElementById('tel').value.trim();
+  if (!nombre || !tel) { alert('Por favor ingresa tu nombre y teléfono.'); return; }
+  document.getElementById('success-msg').style.display = 'block';
+  setTimeout(() => document.getElementById('success-msg').style.display = 'none', 4000);
+}
+
+// ── Header bg on scroll
+window.addEventListener('scroll', () => {
+  const h = document.getElementById('main-header');
+  if (window.scrollY > 60) {
+    h.style.background = 'rgba(255,255,255,0.96)';
+    h.style.boxShadow = '0 4px 24px rgba(15,118,110,0.12)';
+  } else {
+    h.style.background = 'rgba(255,255,255,0.82)';
+    h.style.boxShadow = '0 2px 20px rgba(15,118,110,0.08)';
+  }
+});
+</script>
+</body>
+</html>
